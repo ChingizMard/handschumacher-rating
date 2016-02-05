@@ -1,0 +1,57 @@
+<ion-view view-title="Dashboard" ng-controller="DashCtrl">
+    <ion-content>
+        <div class="card">
+            <div class="item item-text-wrap">
+                <div class="row">
+                    <div class="col col-50 rating-holder">{{averageRate}}</div>
+                    <!-- The average value for the Hans -->
+                    <div class="col col-50" id="bars-holder">
+                        <!--Progress Bars-->
+                        <uib-progressbar type="five-star" value="70"></uib-progressbar>
+                        <uib-progressbar type="four-star" value="30"></uib-progressbar>
+                        <uib-progressbar type="three-star" value="10"></uib-progressbar>
+                        <uib-progressbar type="two-star" value="40"></uib-progressbar>
+                        <uib-progressbar type="one-star" value="80"></uib-progressbar>
+                    </div>
+                </div>
+                <!--End Row-->
+                <div class="row">
+                    <div class="col col-50 rating-stars">
+                        <uib-rating max="5" ng-model="rate" readonly="true"></uib-rating>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <uib-accordion close-others="true">
+            <uib-accordion-group ng-repeat="item in stations" heading="{{item.name}}" template-url="" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                <div class="row">
+                    <div class="col col-50 rating-holder">{{averageRate}}</div>
+                    <!-- The average value for the Hans -->
+                    <div class="col col-50" id="bars-holder">
+                        <!--Progress Bars-->
+                        <uib-progressbar type="five-star" value="70"></uib-progressbar>
+                        <uib-progressbar type="four-star" value="30"></uib-progressbar>
+                        <uib-progressbar type="three-star" value="10"></uib-progressbar>
+                        <uib-progressbar type="two-star" value="40"></uib-progressbar>
+                        <uib-progressbar type="one-star" value="80"></uib-progressbar>
+                    </div>
+                </div>
+                <!--End Row-->
+                <div class="row">
+                    <div class="col col-50 rating-stars">
+                        <uib-rating max="5" ng-model="rate" readonly="true"></uib-rating>
+                    </div>
+                </div>
+                <div class="row">
+                    <p style="text-align:center;">
+                        Starters Soup of the Moment (Changes Daily) £3.25 Locally Smoked Mussels with a cucumber and mayonnaise dip £6.95 Home-Made Paté served with toast £5.25 Sleepy Hollow~ Smoked Salmon served with a side salad and brown bread £6.25 Bradon Rost Pate with a side salad and toast £5.25 A selection of Loch Fyne Pickled Herring served with a Side salad £5.25 Local Black Pudding with a leek + potato mash, crispy bacon + gravy £5.25
+                    </p>
+                </div>
+            </uib-accordion-group>
+        </uib-accordion>
+        
+    </ion-content>
+</ion-view>

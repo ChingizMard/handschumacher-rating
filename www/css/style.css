@@ -1,0 +1,46 @@
+/*======== Dashboard Page ========*/
+
+/*Holds the rating for hans*/
+.rating-holder{
+	margin-top: -13px;
+    text-align : center;
+    font-size: 4.0em;
+}
+/*Holds the colorful progress bars*/
+#bars-holder{
+	padding-top: 10px;
+	padding-left: 0px;
+}
+
+/*Bars positioning and color*/
+.progress{
+	height: 15px;
+	margin-bottom: 0px;
+	border-radius: 0px;
+}
+.progress-bar-five-star{
+	background-color: #6fd100;
+}
+.progress-bar-four-star{
+	background-color: #a4e856;
+}
+.progress-bar-three-star{
+	background-color: #ffe647;
+}
+.progress-bar-two-star{
+	background-color: #fab478;
+}
+.progress-bar-one-star{
+	background-color: #f75b34;
+}
+
+.rating-stars{
+	text-align: center;
+	margin-top: -20px;
+}
+
+/*======== End Dashboard Page ========*/
+.panel-group .panel{
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    margin: 1px 10px;
+}
