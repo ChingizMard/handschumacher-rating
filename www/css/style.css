@@ -49,4 +49,8 @@
 .rate-line{
 	text-align: center;
 }
+.rating-stars{
+	font-size: 2.0em;
+	margin-top: 10px;
+}
 /*======== End Rate Page ============*/
