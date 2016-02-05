@@ -1,0 +1,10 @@
+<ion-view view-title="Rate" ng-controller="RateCtrl">
+  <ion-content>
+		 <ul class="list">
+		    <li class="item rate-line" ng-repeat="item in stations">
+		      {{item.name}}
+		      <uib-rating max="5" ng-model="rate" readonly="true"></uib-rating>
+		    </li>
+		</ul>
+  </ion-content>
+</ion-view>

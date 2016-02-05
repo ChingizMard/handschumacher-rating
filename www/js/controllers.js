@@ -1,25 +1,21 @@
-angular.module('starter.controllers', ['ui.bootstrap'])
+angular.module('starter.controllers', ['ui.bootstrap','ng'])
 
-.controller('DashCtrl', function($scope) {})
+.controller('RateCtrl', function($scope) {
+  
+  $scope.stations = [{name: 'Grill', description: 'Burger'},
+                      {name: 'Grill2', description: 'Burger'},
+                      {name: 'Grill3', description: 'Burger'},
+                      {name: 'Grill4', description: 'Burger'},
+                      {name: 'Grill5', description: 'Burger'},
+                      {name: 'Grill6', description: 'Burger'},
+                      {name: 'Grill7', description: 'Burger'},
+                      {name: 'Grill8', description: 'Burger'}];
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
+
+
+
 
 .controller('AccountCtrl', function($scope) {
   $scope.settings = {
@@ -28,7 +24,7 @@ angular.module('starter.controllers', ['ui.bootstrap'])
 })
 
 
-.controller('DashCtrl', function($scope){
+.controller('DashCtrl', function($scope, $http){
   scrollToLoc('firstCard');
 
   $scope.averageRate = 3.2; //To be calculated on the BackEnd
@@ -49,5 +45,17 @@ angular.module('starter.controllers', ['ui.bootstrap'])
   function scrollToLoc(hash) {
     location.hash = "#" + hash;
   }        
+
+
+  $http({
+    method: 'GET',
+    url: 'http://tux64-14.cs.drexel.edu:8080/weeklymenu'
+  }).then(function successCallback(response) {
+    console.log(response.data.days[1]);
+    //console.log(root.days[0].brk[0].station_name);
+  }, function errorCallback(response) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  });
 
 });
