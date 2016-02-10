@@ -12,7 +12,10 @@ angular.module('starter.controllers', ['ui.bootstrap','ng'])
                       {name: 'Grill8', description: 'Burger'}];
 
 })
+.controller('StatsCtrl', function($scope) {
+  
 
+})
 
 
 
