@@ -25,8 +25,9 @@
 
 
 
-        <uib-accordion close-others="true">
-            <uib-accordion-group ng-repeat="item in stations" heading="{{item.name}}" template-url="" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+        <uib-accordion close-others="true" id="accordion">
+            <uib-accordion-group is-open="isopen" ng-click="isopen=!isopen" ng-repeat="item in stations" heading="{{item.name}}" template-url="">
+
                 <div class="row">
                     <div class="col col-50 rating-holder">{{averageRate}}</div>
                     <!-- The average value for the Hans -->
@@ -54,8 +55,9 @@
                         </ul>
                     </p>
                 </div>
+
             </uib-accordion-group>
         </uib-accordion>
-        
+
     </ion-content>
 </ion-view>
