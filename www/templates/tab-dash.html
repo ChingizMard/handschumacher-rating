@@ -47,7 +47,11 @@
                 </div>
                 <div class="row">
                     <p style="text-align:center;">
-                        Starters Soup of the Moment (Changes Daily) £3.25 Locally Smoked Mussels with a cucumber and mayonnaise dip £6.95 Home-Made Paté served with toast £5.25 Sleepy Hollow~ Smoked Salmon served with a side salad and brown bread £6.25 Bradon Rost Pate with a side salad and toast £5.25 A selection of Loch Fyne Pickled Herring served with a Side salad £5.25 Local Black Pudding with a leek + potato mash, crispy bacon + gravy £5.25
+                        <ul id="menu-for-station">
+
+                            <li class="menu-item" ng-repeat="description in item.description">{{description}}</li>
+
+                        </ul>
                     </p>
                 </div>
             </uib-accordion-group>

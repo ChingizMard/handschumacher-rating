@@ -39,6 +39,13 @@
 	margin-top: -20px;
 }
 
+.menu-item{
+	list-style-type:disc;
+}
+
+#menu-for-station{
+	margin-left: 15%;
+}
 /*======== End Dashboard Page ========*/
 .panel-group .panel{
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
