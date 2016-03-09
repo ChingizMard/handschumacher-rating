@@ -2,13 +2,20 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
 
 
 .controller('RateCtrl', function($scope, $rootScope) {
+    $scope.submitData = function() {
+        console.log($scope.rate);
+    }
+    $scope.refresh = function(rate){
+        $scope.rate = rate;
+    }
+})
 
 
-    })
-    .controller('StatsCtrl', function($scope) {
+
+.controller('StatsCtrl', function($scope) {
 
 
-    })
+})
 
 
 

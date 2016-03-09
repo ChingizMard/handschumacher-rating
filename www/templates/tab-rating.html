@@ -1,6 +1,10 @@
 <ion-view view-title="Rate" ng-controller="RateCtrl">
+ 
   <ion-content>
-		 <ul class="list">
+  <uib-rating ng-click="refresh(rate)" class="station-rating-stars" max="5" ng-model="rate" readonly="false"></uib-rating>
+		{{rate}}
+
+		<!-- <ul class="list">
 		    <li class="item pull-stars-right" ng-repeat="item in stations">
 			    <div class="row">
 				    <div class="col rate-line">
@@ -13,6 +17,10 @@
 				    </div>
 			    </div>
 		    </li>
-		</ul>
+		</ul>-->
   </ion-content>
+  <ion-nav-buttons side="right" ng-show="false" >
+        <button ng-click="submitData()" class="button button-icon button-clear ion-checkmark-circled">
+        </button>
+ </ion-nav-buttons>
 </ion-view>
