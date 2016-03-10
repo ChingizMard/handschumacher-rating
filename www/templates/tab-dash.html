@@ -7,17 +7,17 @@
                     <!-- The average value for the Hans -->
                     <div class="col col-50" id="bars-holder">
                         <!--Progress Bars-->
-                        <uib-progressbar type="five-star" value="70"></uib-progressbar>
-                        <uib-progressbar type="four-star" value="30"></uib-progressbar>
-                        <uib-progressbar type="three-star" value="10"></uib-progressbar>
-                        <uib-progressbar type="two-star" value="40"></uib-progressbar>
-                        <uib-progressbar type="one-star" value="80"></uib-progressbar>
+                        <uib-progressbar type="five-star" value="five"></uib-progressbar>
+                        <uib-progressbar type="four-star" value="four"></uib-progressbar>
+                        <uib-progressbar type="three-star" value="three"></uib-progressbar>
+                        <uib-progressbar type="two-star" value="two"></uib-progressbar>
+                        <uib-progressbar type="one-star" value="one"></uib-progressbar>
                     </div>
                 </div>
                 <!--End Row-->
                 <div class="row">
                     <div class="col col-50 rating-stars">
-                        <uib-rating max="5" ng-model="rate" readonly="true"></uib-rating>
+                        <uib-rating max="5" ng-model="averageRate" readonly="true"></uib-rating>
                     </div>
                 </div>
             </div>
@@ -29,21 +29,21 @@
             <uib-accordion-group is-open="isopen" ng-click="isopen=!isopen" is-disabled="status.isFirstDisabled" ng-repeat="item in stations" heading="{{item.name}}" template-url="">
 
                 <div class="row">
-                    <div class="col col-50 rating-holder">{{averageRate}}</div>
+                    <div class="col col-50 rating-holder">{{item.ratings.avg_rating}}</div>
                     <!-- The average value for the Hans -->
                     <div class="col col-50" id="bars-holder">
                         <!--Progress Bars-->
-                        <uib-progressbar type="five-star" value="70"></uib-progressbar>
-                        <uib-progressbar type="four-star" value="30"></uib-progressbar>
-                        <uib-progressbar type="three-star" value="10"></uib-progressbar>
-                        <uib-progressbar type="two-star" value="40"></uib-progressbar>
-                        <uib-progressbar type="one-star" value="80"></uib-progressbar>
+                        <uib-progressbar type="five-star" value="item.numberOfOne"></uib-progressbar>
+                        <uib-progressbar type="four-star" value="item.numberOfTwo"></uib-progressbar>
+                        <uib-progressbar type="three-star" value="item.numberOfThree"></uib-progressbar>
+                        <uib-progressbar type="two-star" value="item.numberOfFour"></uib-progressbar>
+                        <uib-progressbar type="one-star" value="item.numberOfFive"></uib-progressbar>
                     </div>
                 </div>
                 <!--End Row-->
                 <div class="row">
                     <div class="col col-50 rating-stars">
-                        <uib-rating max="5" ng-model="rate" readonly="true"></uib-rating>
+                        <uib-rating max="5" ng-model="item.ratings.avg_rating" readonly="true"></uib-rating>
                     </div>
                 </div>
                 <div class="row">
