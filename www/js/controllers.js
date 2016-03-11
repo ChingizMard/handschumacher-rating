@@ -180,8 +180,8 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
         //
         //
 
-        //currentDate = 'monday';
-        //currentHour = 100;
+        currentDate = 'monday';
+        currentHour = 100;
 
         
 
@@ -344,7 +344,7 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
         var currentHour = date.getHours() * 100 + date.getMinutes();
 
         //Design of the data storage
-        //currentHour = 100;
+        currentHour = 100;
 
 
         if (currentHour > 0 && currentHour < 1200){
