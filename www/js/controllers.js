@@ -1,3 +1,6 @@
+//CS275 Group Project "How Bad Is The Hans"
+
+
 angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
 
 
