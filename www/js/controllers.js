@@ -152,10 +152,13 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
 
 .controller('DashCtrl', function($scope, $http, $rootScope, $timeout) {
 
-
+    $scope.$on('$ionicView.enter', function() {
+        // code to run each time view is entered
+    
 
 
     $scope.averageRate = 0; //To be calculated on the BackEnd
+    $scope.averageRateFinal = 0;
     $scope.rate = Math.round($scope.averageRate);
     $scope.oneOpenOnly = true;
     $scope.stations = new Array();
@@ -539,7 +542,7 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
 
         
         $scope.averageRate = ($scope.averageRate / $scope.stations.length).toFixed(1);
-
+        $scope.averageRateFinal = $scope.averageRate;
 
         
         
@@ -547,5 +550,6 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
 
     }, 300);
 
+});
 
 });
