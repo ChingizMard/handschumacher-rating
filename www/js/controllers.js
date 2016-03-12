@@ -1,7 +1,7 @@
 angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
 
 
-.controller('RateCtrl', function($scope, $rootScope, $http) {
+.controller('RateCtrl', function($scope, $rootScope, $http,  $ionicPopup) {
 
 
     $scope.namesAndRates = new Array();
@@ -15,11 +15,12 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
         var date = new Date();
         var currentHour = date.getHours() * 100 + date.getMinutes();
 
-        
+        currentHour = 100;
         
         for (entry in $scope.namesAndRates){
             if (currentHour > 0 && currentHour < 1200){
                 //brk
+                console.log($scope.namesAndRates[entry].rating);
                 var uri = 'http://tux64-14.cs.drexel.edu:9000/rating/brk/' + $scope.namesAndRates[entry].name;
                 if ($scope.namesAndRates[entry].rating != 0){
                     $http({
@@ -77,6 +78,12 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
             }
             
         }
+        $ionicPopup.alert({
+              title: 'Success',
+              content: 'Thank you for your votes!'
+        }).then(function(res) {
+              
+        });
 
     }
 
@@ -152,6 +159,7 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
     $scope.rate = Math.round($scope.averageRate);
     $scope.oneOpenOnly = true;
     $scope.stations = new Array();
+    
     $scope.one = 0;
     $scope.two = 0;
     $scope.three = 0;
@@ -163,7 +171,7 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
 
     $http({
         method: 'GET',
-        url: 'http://tux64-14.cs.drexel.edu:8080/weeklymenu'
+        url: 'http://tux64-14.cs.drexel.edu:9000/weeklymenu'
     }).then(function successCallback(response) {
         
         var date = new Date();
@@ -194,8 +202,9 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
                     for (var item in response.data.days[0].monday.brk) {
                         var dishes = response.data.days[0].monday.brk[item].items;
                         var stationName = response.data.days[0].monday.brk[item].station_name;
-                        //Call the get rating for station
-                        // $scope.stations.push({
+
+                        // Call the get rating for station
+                        // $scope.stationNames.push({
                         //     name: stationName,
                         //     description: dishes
                         // });
@@ -338,6 +347,7 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
 
 
     var populateRating = function(name, description){
+        
         //console.log($scope.stations[data].name);
         var requestString = "";
         var date = new Date();
@@ -356,34 +366,60 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
             }).then(function successCallback(response) {
                 
                 //Calculate number of votes
-                var numberOfVotes = response.data.ratings[1] + 
-                                    response.data.ratings[2] + 
-                                    response.data.ratings[3] + 
-                                    response.data.ratings[4] + 
-                                    response.data.ratings[5];
-
-                /////////
-
-
-                $scope.averageRate += response.data.avg_rating;
-                $scope.one += response.data.ratings[1];
-                $scope.two += response.data.ratings[2];
-                $scope.three += response.data.ratings[3];
-                $scope.four += response.data.ratings[4];
-                $scope.five += response.data.ratings[5];
-                
-
-                $scope.stations.push({
-                    name: name,
-                    description: description,
-                    ratings : response.data,
-                    numberOfOne: response.data.ratings[1] / numberOfVotes * 100,
-                    numberOfTwo: response.data.ratings[2] / numberOfVotes * 100,
-                    numberOfThree: response.data.ratings[3] / numberOfVotes * 100,
-                    numberOfFour: response.data.ratings[4] / numberOfVotes * 100,
-                    numberOfFive: response.data.ratings[5] / numberOfVotes * 100,
-                });
                 console.log(response.data);
+                try{
+                    var numberOfVotes = response.data.ratings[1] + 
+                                        response.data.ratings[2] + 
+                                        response.data.ratings[3] + 
+                                        response.data.ratings[4] + 
+                                        response.data.ratings[5];
+                    
+
+                    /////////
+
+
+                    $scope.averageRate += response.data.avg_rating;
+                    $scope.one += response.data.ratings[1];
+                    $scope.two += response.data.ratings[2];
+                    $scope.three += response.data.ratings[3];
+                    $scope.four += response.data.ratings[4];
+                    $scope.five += response.data.ratings[5];
+                }catch(err){
+                    
+                    numberOfVotes = 0;
+                    $scope.averageRate = 0;
+                    $scope.one = 0;
+                    $scope.two = 0;
+                    $scope.three = 0;
+                    $scope.four = 0;
+                    $scope.five = 0;
+                }
+
+                if (numberOfVotes != 0){
+                    $scope.stations.push({
+                        name: name,
+                        description: description,
+                        ratings : response.data,
+                        numberOfOne: response.data.ratings[1] / numberOfVotes * 100,
+                        numberOfTwo: response.data.ratings[2] / numberOfVotes * 100,
+                        numberOfThree: response.data.ratings[3] / numberOfVotes * 100,
+                        numberOfFour: response.data.ratings[4] / numberOfVotes * 100,
+                        numberOfFive: response.data.ratings[5] / numberOfVotes * 100,
+                    });
+                }else{
+                    console.log("Here")
+                    $scope.stations.push({
+                        name: name,
+                        description: description,
+                        ratings : 0,
+                        numberOfOne: 0,
+                        numberOfTwo: 0,
+                        numberOfThree: 0,
+                        numberOfFour: 0,
+                        numberOfFive: 0,
+                    });
+                }
+                
 
             }, function errorCallback(response) {
 
@@ -491,15 +527,20 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
         $scope.totalVotes = $scope.one + $scope.two + $scope.three + $scope.four + $scope.five;
         //console.log($scope.one + $scope.two + $scope.three + $scope.four + $scope.five);
         //console.log($scope.totalVotes);
-        console.log($scope.three);
         
-        $scope.one = $scope.one / $scope.totalVotes * 100;
-        $scope.two = $scope.two / $scope.totalVotes * 100;
-        $scope.tree = $scope.three / $scope.totalVotes * 100;
-        $scope.four = $scope.four / $scope.totalVotes * 100;
-        $scope.five = $scope.five / $scope.totalVotes * 100;
+        if($scope.totalVotes != 0){
+            $scope.one = $scope.one / $scope.totalVotes * 100;
+            $scope.two = $scope.two / $scope.totalVotes * 100;
+            $scope.tree = $scope.three / $scope.totalVotes * 100;
+            $scope.four = $scope.four / $scope.totalVotes * 100;
+            $scope.five = $scope.five / $scope.totalVotes * 100;
+        }
         //var temp = 
+
+        
         $scope.averageRate = ($scope.averageRate / $scope.stations.length).toFixed(1);
+
+
         
         
 
