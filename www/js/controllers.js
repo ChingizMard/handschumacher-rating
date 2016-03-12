@@ -180,8 +180,7 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
         var date = new Date();
         var currentHour = date.getHours() * 100 + date.getMinutes();
         var daysOfTheWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
-        var currentDate = daysOfTheWeek[date.getDay()];
-
+        var currentDate = daysOfTheWeek[date.getDay()-1];
 
         //DONOT FORGET TO REMOVE
         //
@@ -191,8 +190,8 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
         //
         //
 
-        currentDate = 'monday';
-        currentHour = 100;
+        currentDate = 'thursday';
+        //currentHour = 100;
 
         
 
@@ -296,6 +295,7 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
         } else {
             //Do dinner 
             console.log("Dinner Time");
+
             switch (currentDate) {
                 case 'monday':
                     for (var item in response.data.days[0].monday.din) {
@@ -351,13 +351,13 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
 
     var populateRating = function(name, description){
         
-        //console.log($scope.stations[data].name);
+        
         var requestString = "";
         var date = new Date();
         var currentHour = date.getHours() * 100 + date.getMinutes();
 
         //Design of the data storage
-        currentHour = 100;
+        //currentHour = 100;
 
 
         if (currentHour > 0 && currentHour < 1200){
@@ -439,41 +439,69 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
             }).then(function successCallback(response) {
                 
                 //Calculate number of votes
-                var numberOfVotes = response.data.ratings[1] + 
-                                    response.data.ratings[2] + 
-                                    response.data.ratings[3] + 
-                                    response.data.ratings[4] + 
-                                    response.data.ratings[5];
-
-                /////////
-
-
-                $scope.averageRate += response.data.avg_rating;
-                $scope.one += response.data.ratings[1];
-                $scope.two += response.data.ratings[2];
-                $scope.three += response.data.ratings[3];
-                $scope.four += response.data.ratings[4];
-                $scope.five += response.data.ratings[5];
-                
-
-                $scope.stations.push({
-                    name: name,
-                    description: description,
-                    ratings : response.data,
-                    numberOfOne: response.data.ratings[1] / numberOfVotes * 100,
-                    numberOfTwo: response.data.ratings[2] / numberOfVotes * 100,
-                    numberOfThree: response.data.ratings[3] / numberOfVotes * 100,
-                    numberOfFour: response.data.ratings[4] / numberOfVotes * 100,
-                    numberOfFive: response.data.ratings[5] / numberOfVotes * 100,
-                });
                 console.log(response.data);
+                try{
+                    var numberOfVotes = response.data.ratings[1] + 
+                                        response.data.ratings[2] + 
+                                        response.data.ratings[3] + 
+                                        response.data.ratings[4] + 
+                                        response.data.ratings[5];
+                    
+
+                    /////////
+
+
+                    $scope.averageRate += response.data.avg_rating;
+                    $scope.one += response.data.ratings[1];
+                    $scope.two += response.data.ratings[2];
+                    $scope.three += response.data.ratings[3];
+                    $scope.four += response.data.ratings[4];
+                    $scope.five += response.data.ratings[5];
+                }catch(err){
+                    
+                    numberOfVotes = 0;
+                    $scope.averageRate = 0;
+                    $scope.one = 0;
+                    $scope.two = 0;
+                    $scope.three = 0;
+                    $scope.four = 0;
+                    $scope.five = 0;
+                }
+
+                if (numberOfVotes != 0){
+                    $scope.stations.push({
+                        name: name,
+                        description: description,
+                        ratings : response.data,
+                        numberOfOne: response.data.ratings[1] / numberOfVotes * 100,
+                        numberOfTwo: response.data.ratings[2] / numberOfVotes * 100,
+                        numberOfThree: response.data.ratings[3] / numberOfVotes * 100,
+                        numberOfFour: response.data.ratings[4] / numberOfVotes * 100,
+                        numberOfFive: response.data.ratings[5] / numberOfVotes * 100,
+                    });
+                }else{
+                    console.log("Here")
+                    $scope.stations.push({
+                        name: name,
+                        description: description,
+                        ratings : 0,
+                        numberOfOne: 0,
+                        numberOfTwo: 0,
+                        numberOfThree: 0,
+                        numberOfFour: 0,
+                        numberOfFive: 0,
+                    });
+                }
+                
 
             }, function errorCallback(response) {
 
             // called asynchronously if an error occurs
             // or server returns response with an error status.
             });
+
         }else{
+            
             requestString = 'http://tux64-14.cs.drexel.edu:9000/rating/' + 'din/' + name;
             $http({
                 method: 'GET',
@@ -481,34 +509,60 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
             }).then(function successCallback(response) {
                 
                 //Calculate number of votes
-                var numberOfVotes = response.data.ratings[1] + 
-                                    response.data.ratings[2] + 
-                                    response.data.ratings[3] + 
-                                    response.data.ratings[4] + 
-                                    response.data.ratings[5];
-
-                /////////
-
-
-                $scope.averageRate += response.data.avg_rating;
-                $scope.one += response.data.ratings[1];
-                $scope.two += response.data.ratings[2];
-                $scope.three += response.data.ratings[3];
-                $scope.four += response.data.ratings[4];
-                $scope.five += response.data.ratings[5];
-                
-
-                $scope.stations.push({
-                    name: name,
-                    description: description,
-                    ratings : response.data,
-                    numberOfOne: response.data.ratings[1] / numberOfVotes * 100,
-                    numberOfTwo: response.data.ratings[2] / numberOfVotes * 100,
-                    numberOfThree: response.data.ratings[3] / numberOfVotes * 100,
-                    numberOfFour: response.data.ratings[4] / numberOfVotes * 100,
-                    numberOfFive: response.data.ratings[5] / numberOfVotes * 100,
-                });
                 console.log(response.data);
+                try{
+                    var numberOfVotes = response.data.ratings[1] + 
+                                        response.data.ratings[2] + 
+                                        response.data.ratings[3] + 
+                                        response.data.ratings[4] + 
+                                        response.data.ratings[5];
+                    
+
+                    /////////
+
+
+                    $scope.averageRate += response.data.avg_rating;
+                    $scope.one += response.data.ratings[1];
+                    $scope.two += response.data.ratings[2];
+                    $scope.three += response.data.ratings[3];
+                    $scope.four += response.data.ratings[4];
+                    $scope.five += response.data.ratings[5];
+                }catch(err){
+                    
+                    numberOfVotes = 0;
+                    $scope.averageRate = 0;
+                    $scope.one = 0;
+                    $scope.two = 0;
+                    $scope.three = 0;
+                    $scope.four = 0;
+                    $scope.five = 0;
+                }
+
+                if (numberOfVotes != 0){
+                    $scope.stations.push({
+                        name: name,
+                        description: description,
+                        ratings : response.data,
+                        numberOfOne: response.data.ratings[1] / numberOfVotes * 100,
+                        numberOfTwo: response.data.ratings[2] / numberOfVotes * 100,
+                        numberOfThree: response.data.ratings[3] / numberOfVotes * 100,
+                        numberOfFour: response.data.ratings[4] / numberOfVotes * 100,
+                        numberOfFive: response.data.ratings[5] / numberOfVotes * 100,
+                    });
+                }else{
+                    console.log("Here")
+                    $scope.stations.push({
+                        name: name,
+                        description: description,
+                        ratings : 0,
+                        numberOfOne: 0,
+                        numberOfTwo: 0,
+                        numberOfThree: 0,
+                        numberOfFour: 0,
+                        numberOfFive: 0,
+                    });
+                }
+                
 
             }, function errorCallback(response) {
 
