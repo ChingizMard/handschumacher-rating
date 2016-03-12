@@ -182,19 +182,7 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
         var daysOfTheWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
         var currentDate = daysOfTheWeek[date.getDay()-1];
 
-        //DONOT FORGET TO REMOVE
-        //
-        //
-        //
-        //
-        //
-        //
-
-        currentDate = 'thursday';
-        //currentHour = 100;
-
-        
-
+ 
         if (currentHour > 0 && currentHour < 1200) {
             //for(var item in JSONResponse.)
             //Do breakfast
@@ -501,7 +489,7 @@ angular.module('starter.controllers', ['ui.bootstrap', 'ng'])
             });
 
         }else{
-            
+
             requestString = 'http://tux64-14.cs.drexel.edu:9000/rating/' + 'din/' + name;
             $http({
                 method: 'GET',
